@@ -7,11 +7,11 @@
             mode="inline"
             :style="{ height: '100%', borderRight: 0 }"
           >
-            <a-sub-menu key="sub11111">
+            <a-sub-menu key="sub1">
               <template #title>
                 <span>
                   <user-outlined />
-                  subnav 1
+                  subnav 111
                 </span>
               </template>
               <a-menu-item key="1">option1</a-menu-item>
