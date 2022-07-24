@@ -48,13 +48,13 @@
         <a-layout-content
             :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
           >
-            Content
+            {{ebook}}
         </a-layout-content>
     </a-layout>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent,onMounted,ref } from 'vue';
 import HelloWorld from '@/components/HelloWorld.vue'; 
 import axios from 'axios'// @ is an alias to /src
 
@@ -62,10 +62,26 @@ import axios from 'axios'// @ is an alias to /src
 export default defineComponent({
   name: 'Home',
   setup(){
-    console.log("Home");
-    axios.get("http://localhost:8081/ebook/list?name=教程").then(function(response) {
-      console.log(response);
+   //响应式数据
+   const ebook = ref();
+
+    onMounted(() => {
+      console.log('Home mounted')
+       axios.get('http://localhost:8081/ebook/list?name=教程').then(res => {
+        const data =  res.data;
+        ebook.value = data.content;
+
+    });
     })
-  }
+
+    return{
+      ebook
+    }
+  },
+
+  
+  
+  
+
 });
 </script>
