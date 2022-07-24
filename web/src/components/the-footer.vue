@@ -1,6 +1,6 @@
 <template>
       <a-layout-footer style="text-align: center">
-      wiki电子书das
+      wiki电子书
     </a-layout-footer>
 </template>
 

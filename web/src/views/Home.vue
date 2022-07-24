@@ -55,12 +55,17 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import HelloWorld from '@/components/HelloWorld.vue'; 
+import axios from 'axios'// @ is an alias to /src
+
 
 export default defineComponent({
   name: 'Home',
-  components: {
-    HelloWorld,
-  },
+  setup(){
+    console.log("Home");
+    axios.get("http://localhost:8081/ebook/list?name=教程").then(function(response) {
+      console.log(response);
+    })
+  }
 });
 </script>
