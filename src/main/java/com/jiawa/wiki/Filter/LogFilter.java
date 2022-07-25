@@ -4,11 +4,13 @@ package com.jiawa.wiki.Filter;
 import com.jiawa.wikiApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+@Component
 public class LogFilter implements Filter {
     private static final Logger LOG = LoggerFactory.getLogger(LogFilter.class);
 
