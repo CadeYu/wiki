@@ -7,6 +7,7 @@ import com.jiawa.wiki.Req.EbookReq;
 import com.jiawa.wiki.Resp.EbookResp;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import javax.management.relation.InvalidRelationTypeException;
@@ -23,8 +24,12 @@ public class EbookService {
         //模糊查询
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
+            if (!ObjectUtils.isEmpty(ebookReq.getName()))   {
+                //传进书本的名字才模糊查询
+                criteria.andNameLike("%" + ebookReq.getName() + "%");
+            }
 
-          criteria.andNameLike("%" + ebookReq.getName() + "%");
+
 
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
 
