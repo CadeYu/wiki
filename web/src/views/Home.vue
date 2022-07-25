@@ -49,35 +49,35 @@
         <a-layout-content
             :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
           >
-     <a-list item-layout="vertical" size="large" :pagination="pagination" :data-source="listData">
-    <template #footer>
+     <a-list item-layout="vertical" size="large" :data-source="ebook" :grid="{guttre: 20, column : 3}">
+    <!-- <template #footer>
       <div>
         <b>ant design vue</b>
         footer part
       </div>
-    </template>
+    </template> -->
     <template #renderItem="{ item }">
-      <a-list-item key="item.title">
+      <a-list-item key="item.name">
         <template #actions>
           <span v-for="{ type, text } in actions" :key="type">
             <component :is="type" style="margin-right: 8px" />
             {{ text }}
           </span>
         </template>
-        <template #extra>
+        <!-- <template #extra>
           <img
             width="272"
             alt="logo"
             src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
           />
-        </template>
+        </template> -->
         <a-list-item-meta :description="item.description">
           <template #title>
-            <a :href="item.href">{{ item.title }}</a>
+            <a :href="item.href">{{ item.name }}</a>
           </template>
-          <template #avatar><a-avatar :src="item.avatar" /></template>
+          <template #avatar><a-avatar :src="item.cover" /></template>
         </a-list-item-meta>
-        {{ item.content }}
+        <!-- {{ item.content }} -->
       </a-list-item>
     </template>
   </a-list>
@@ -145,4 +145,19 @@ export default defineComponent({
   
 
 });
+
+
 </script>
+
+ //本css只在本组件中生效
+<style scoped>
+ 
+.ant-avatar {
+    width : 50px;
+    height : 50px;
+    border-radius : 10%;
+    line-height : 50px;
+    margin : 5px 0;
+}
+  
+</style>
