@@ -132,18 +132,9 @@ export default defineComponent({
       },
 
       actions: [
-        {
-          type: 'star-o',
-          text: '收藏',
-        },
-        {
-          type: 'like-o',
-          text: '喜欢',
-        },
-        {
-          type: 'message',
-          text: '留言',
-        },
+      { type: 'StarOutlined', text: '156' },
+      { type: 'LikeOutlined', text: '156' },
+      { type: 'MessageOutlined', text: '2' },
       ],
 
     }
