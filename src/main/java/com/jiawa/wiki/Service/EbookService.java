@@ -1,5 +1,6 @@
 package com.jiawa.wiki.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.jiawa.wiki.Domain.Ebook;
 import com.jiawa.wiki.Domain.EbookExample;
 import com.jiawa.wiki.Mapper.EbookMapper;
@@ -21,6 +22,9 @@ public class EbookService {
     private EbookMapper ebookMapper;
 
     public List<EbookResp> list(EbookReq ebookReq){
+        //分页
+        PageHelper.startPage(1,2);
+
         //模糊查询
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
