@@ -1,11 +1,14 @@
 package com.jiawa.wiki.Service;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jiawa.wiki.Domain.Ebook;
 import com.jiawa.wiki.Domain.EbookExample;
 import com.jiawa.wiki.Mapper.EbookMapper;
 import com.jiawa.wiki.Req.EbookReq;
 import com.jiawa.wiki.Resp.EbookResp;
+import com.jiawa.wiki.Resp.PageResp;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -21,9 +24,8 @@ public class EbookService {
     @Resource
     private EbookMapper ebookMapper;
 
-    public List<EbookResp> list(EbookReq ebookReq){
-        //分页
-        PageHelper.startPage(1,2);
+    public PageResp<EbookResp> list(EbookReq ebookReq){
+
 
         //模糊查询
         EbookExample ebookExample = new EbookExample();
@@ -33,6 +35,9 @@ public class EbookService {
                 criteria.andNameLike("%" + ebookReq.getName() + "%");
             }
 
+
+            //分页
+        Page<Object> page = PageHelper.startPage(ebookReq.getPage(), ebookReq.getSize());
 
 
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
@@ -49,7 +54,11 @@ public class EbookService {
 
         }
 
-        return reqList;
+        PageResp<EbookResp> pageResp = new PageResp<>();
+        pageResp.setTotal(page.getTotal());
+        pageResp.setList(reqList);
+
+        return pageResp;
 
     }
 

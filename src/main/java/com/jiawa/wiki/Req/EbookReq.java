@@ -3,7 +3,7 @@ package com.jiawa.wiki.Req;
 /**
  *将请求参数封装成一个类
  */
-public class EbookReq {
+public class EbookReq extends PageReq{
     private Long id;
 
     private String name;
