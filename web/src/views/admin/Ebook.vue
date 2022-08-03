@@ -6,7 +6,7 @@
       
       <a-table
         :columns="columns"
-        :row-key="record => record.id"
+        :row-key="record  => record.id"
         :data-source="ebooks"
         :pagination="pagination"
         :loading="loading"
@@ -18,7 +18,7 @@
                     </template>     
 
 
-                    <template v-slot:action="{ text , record}">
+                    <template v-slot:action="{ text, record}">
                         <a-space size = "small">
                             <a-button type = "primary">
                                 编辑
@@ -87,16 +87,16 @@
       /**
        * 数据查询
        **/
-      const handleQuery = (params: any) => {
+      const handleQuery = (p: any) => {
         loading.value = true;
-        axios.get("http://localhost:8081/ebook/list", {
-        }).then((response) => {
+        axios.get("http://localhost:8081/ebook/list", {params : p}).then((response) => {
           loading.value = false;
           const data = response.data;
-          ebooks.value = data.content;
+          ebooks.value = data.content.list;
           
           //重置分页按钮
-          pagination.value.current = params.page;
+          pagination.value.current = p.page;
+          pagination.value.total = data.content.total;
         });
       };
 
@@ -113,7 +113,10 @@
 
    
      onMounted(() => {
-          handleQuery({});
+          handleQuery({
+            page : 1,
+            size : pagination.value.pageSize
+          });
    });
        
      
