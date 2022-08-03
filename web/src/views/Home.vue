@@ -91,19 +91,7 @@ import { defineComponent,onMounted,ref } from 'vue';
 import HelloWorld from '@/components/HelloWorld.vue'; 
 import axios from 'axios'// @ is an alias to /src
 
-const listData: Record<string, string>[] = [];
 
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: 'https://www.antdv.com/',
-    title: `ant design vue part ${i}`,
-    avatar: 'https://joeschmoe.io/api/v1/random',
-    description:
-      'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content:
-      'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-  });
-}
 
 export default defineComponent({
   name: 'Home',
@@ -113,17 +101,20 @@ export default defineComponent({
 
     onMounted(() => {
       console.log('Home mounted')
-       axios.get('http://localhost:8081/ebook/list').then(res => {
+       axios.get('http://localhost:8081/ebook/list',{
+        params: {
+        page: 1,
+        size: 1000
+        }
+       }).then(res => {
         const data =  res.data;
-        ebook.value = data.content;
+        ebook.value = data.content.list;
 
     });
     })
 
     return{
       ebook,
-      listData,
-      
       pagination:{
           onChange: (page: number) => {
           console.log(page);

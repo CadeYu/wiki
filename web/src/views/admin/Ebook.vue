@@ -87,15 +87,21 @@
       /**
        * 数据查询
        **/
-      const handleQuery = (p: any) => {
+      const handleQuery = (params: any) => {
         loading.value = true;
-        axios.get("http://localhost:8081/ebook/list", {params : p}).then((response) => {
+        axios.get("http://localhost:8081/ebook/list", {
+          params : {
+            page : params.page,
+            size : params.size
+          }
+          
+        }).then((response) => {
           loading.value = false;
           const data = response.data;
           ebooks.value = data.content.list;
           
           //重置分页按钮
-          pagination.value.current = p.page;
+          pagination.value.current = params.page;
           pagination.value.total = data.content.total;
         });
       };
@@ -114,6 +120,7 @@
    
      onMounted(() => {
           handleQuery({
+            //page和size两个字段对应着后端的实体类
             page : 1,
             size : pagination.value.pageSize
           });
