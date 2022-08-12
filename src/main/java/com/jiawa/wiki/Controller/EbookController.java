@@ -1,18 +1,14 @@
 package com.jiawa.wiki.Controller;
 
-import com.jiawa.wiki.Domain.Ebook;
-import com.jiawa.wiki.Req.EbookReq;
+import com.jiawa.wiki.Req.EbookQueryReq;
+import com.jiawa.wiki.Req.EbookSaveReq;
 import com.jiawa.wiki.Resp.CommonResp;
-import com.jiawa.wiki.Resp.EbookResp;
+import com.jiawa.wiki.Resp.EbookQueryResp;
 import com.jiawa.wiki.Resp.PageResp;
 import com.jiawa.wiki.Service.EbookService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @RestController
 @RequestMapping("/ebook")
@@ -23,13 +19,22 @@ public class EbookController {
 
 
     @GetMapping("/list")
-    public CommonResp list(EbookReq ebookReq){
-        CommonResp<PageResp<EbookResp>> CommonResp = new CommonResp<>();
-        PageResp<EbookResp> pageResp = ebookService.list(ebookReq);
+    public CommonResp list( EbookQueryReq req) {
+        CommonResp<PageResp<EbookQueryResp>> resp = new CommonResp<>();
+        PageResp<EbookQueryResp> list = ebookService.list(req);
+        resp.setContent(list);
+        return resp;
+    }
 
-        CommonResp.setContent(pageResp);
 
-        return CommonResp;
+    @PostMapping("/save")
+    public CommonResp save(@RequestBody EbookSaveReq ebookReq){
+        //保存成功之后前端刷新列表,所以不需要返回值
+        CommonResp resp = new CommonResp<>();
+
+        ebookService.save(ebookReq);
+
+        return resp;
 
 
     }
